@@ -48,10 +48,7 @@ app.post("/addthread", async(req, res) => {
 
     var date = new Date();
     const dt = req.body;
-    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-    const day = days[new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Kolkata' }).format(date)];
-    const time = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false }).format(date);
-    dt.post_time = { day: day, time: time };
+    dt.post_time = {"day" : days[date.getDay()], "time" : date.getHours() + ":" + date.getMinutes()};
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
