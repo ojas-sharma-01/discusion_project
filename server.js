@@ -48,7 +48,10 @@ app.post("/addthread", async(req, res) => {
 
     var date = new Date();
     const dt = req.body;
-    dt.post_time = {"day" : days[date.getDay()], "time" : date.getHours() + ":" + date.getMinutes()};
+    const options = { timeZone: 'Asia/Kolkata', hour12: false };
+    const day = days[new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Kolkata' }).format(date)];
+    const time = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false }).format(date);
+    dt.post_time = { day: day, time: time };
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
@@ -150,18 +153,6 @@ app.post('/register', async(req, res) => {
       }
     });
 
-    //const r = await db.collection("Users").doc(userid);
-
-    // r.get().then(async (doc) => {
-    //   if (!doc.exists){
-    //     const data = {password : passwd,};
-    //     await r.set(data);
-    //     res.send("registered");
-    //   }
-    //   else{
-    //     res.send("User exists");
-    //   }
-    // });
   }
   catch(err){
     console.log(err); res.send({
@@ -170,42 +161,6 @@ app.post('/register', async(req, res) => {
   }
 });
 
-
-// app.post('/login', async(req, res) => {
-//   try{
-//
-//     // console.log(req.body);
-//     const email = req.body.email;
-//     const passwd = req.body.passwd;
-//
-//     admin.auth()
-//     .getUserByEmail(email)
-//     .then((userRecord) => {
-//       return admin.auth().verifyUserPassword(email, passwd);
-//     })
-//     .then(() => {
-//       console.log("ad");
-//     }
-//     )
-//     .catch(e => console.log(e));
-//   //   var found = false;
-//   //   const r = await db.collection("Users").get();
-//   //   const arr = r.docs.map((doc) => ({id: doc.id, ...doc.data()}));
-//   //
-//   //   for (const k of arr){
-//   //     if (k.id == userid && k.password == passwd) {
-//   //       found = true;
-//   //       res.send('Login Successfull'); break;
-//   //     }
-//   //   }
-//   //
-//   //   if (!found) res.send("User doesnt exist");
-//   // }
-// }
-//   catch(err){
-//     console.log(err); res.send("Login Failed");
-//   }
-// });
 
 app.post("/reaction", async(req, res) => {
   try{
