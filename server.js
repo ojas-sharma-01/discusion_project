@@ -9,6 +9,7 @@ const serviceAccount =  require('./key.json');
 import admin from 'firebase-admin';
 import bp from 'body-parser';
 import cors from 'cors';
+import { DateTime } from 'luxon';
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 
@@ -46,12 +47,14 @@ app.get('/keep-alive', (req, res) => {
 app.post("/addthread", async(req, res) => {
   try {
 
-    var date = new Date();
+    const date = DateTime.now().setZone('Asia/Kolkata');
     const dt = req.body;
-    dt.post_time = {"day" : days[date.getDay()], "time" : date.getHours() + ":" + date.getMinutes()};
+    dt.post_time = {"day" : date.weekdayShort, "time" : date.hour + ":" + date.minute};
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
+
+    console.log(dt);
     await db.collection("threads").doc().set(dt);
 
     res.send("inserted");
