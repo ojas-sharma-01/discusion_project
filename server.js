@@ -47,10 +47,12 @@ app.post("/addthread", authenticateJWT, async(req, res) => {
   try {
     var date = new Date();
     const dt = req.body;
-    dt.post_time = {"day" : days[date.getDay()], "time" : date.getHours() + ":" + date.getMinutes()};
+    dt.post_time = {"day" : date.weekdayShort, "time" : date.hour + ":" + date.minute};
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
+
+    console.log(dt);
     await db.collection("threads").doc().set(dt);
 
     res.send("inserted");
@@ -175,6 +177,7 @@ app.post('/register', async(req, res) => {
               });
         }
       });
+
   }
   catch(err){
     console.log(err); res.send(err, "Registration failed");
