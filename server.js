@@ -6,6 +6,9 @@ import  cors from 'cors';
 import path from 'path';
 import authenticateJWT from './authMiddleware.js';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const details = {
@@ -50,12 +53,17 @@ app.post("/addthread", authenticateJWT, async(req, res) => {
   try {
     var date = new Date();
     const dt = req.body;
-    dt.post_time = {"day" : date.weekdayShort, "time" : date.hour + ":" + date.minute};
+    
+    const adjusted_date = new Date(date.toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
+    dt.post_time = {
+      "day" : days[adjusted_date.getDay()], 
+      "time" : adjusted_date.getHours() + ":" + (adjusted_date.getMinutes() < 10 ? '0' : '') + adjusted_date.getMinutes(),
+      "year" : adjusted_date.getFullYear(),
+    };
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
 
-    console.log(dt);
     await db.collection("threads").doc().set(dt);
 
     res.send("inserted");
@@ -69,7 +77,6 @@ app.post("/addthread", authenticateJWT, async(req, res) => {
 app.get("/getthreads", async (req, res) => {
   try {
 
-    console.log(db);
     
     const dt = await db.collection("threads").get();
     const obj = dt.docs.map((i) => ({id : i.id, ...i.data()}));
@@ -139,7 +146,6 @@ app.post('/register', async(req, res) => {
       })
       .then(async (userRecord) => {
         uuu = userRecord.uid;
-        console.log('Successfully created new user:', userRecord.uid);
         // client.db("test").createCollection(uuu);
 
         await db.collection("profile").doc(uuu).set({
@@ -158,7 +164,7 @@ app.post('/register', async(req, res) => {
           profile_pic : ""
       });
 
-        const jwt_token = jwt.sign({uid: uuu, username: userid}, process.env.JWT_SECRET || 'your_jwt_secret_key', {expiresIn: '1h'});
+        const jwt_token = jwt.sign({uid: uuu, username: userid}, process.env.JWT_SECRET, {expiresIn: '1h'});
         res.send(
             {msg : "Registered",
             uuid : uuu,
@@ -194,7 +200,6 @@ app.get("/getprofile/:uid", async(rq, rs) => {
       // console.log("dfsdf");
       const uuid = rq.params.uid;
       const profile_data = (await db.collection("profile").doc(uuid).get()).data();
-      console.log(profile_data);
 
       rs.send({
           msg : profile_data
@@ -213,7 +218,6 @@ app.post("/update_profile", authenticateJWT, async(rq, rs) => {
       const data = rq.body;
       const uid = rq.body.uid;
       delete data.uid;
-      console.log(uid);
       await db.collection("profile").doc(uid).set(data);
       // console.log(data);
       
@@ -237,8 +241,7 @@ app.post('/login', async(req, res) => {
     const uid = decodedToken.uid;
     const user = decodedToken.displayName;
 
-    console.log(uid, user, 'login');
-    const jwt_token = jwt.sign({uid: uid, username: username}, process.env.JWT_SECRET || 'your_jwt_secret_key', {expiresIn: '1h'});
+    const jwt_token = jwt.sign({uid: uid, username: username}, process.env.JWT_SECRET, {expiresIn: '1h'});
 
     res.send({
       msg : "Login Successfull",
