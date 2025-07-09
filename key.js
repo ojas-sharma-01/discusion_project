@@ -1,4 +1,4 @@
-{
+const serviceAccount = {
   "type": "service_account",
   "project_id": "billinginv-78309",
   "private_key_id": "b87bcd3d73d41db1f77083fa68707c485bdc1b31",
@@ -11,3 +11,5 @@
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-2nr5t%40billinginv-78309.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }
+
+export default serviceAccount;
