@@ -30,18 +30,20 @@ app.use(bp.urlencoded({extended:true}));
 app.use(express.static(path.join(process.cwd(), 'build')));
 
   const serviceAccount = {
-  "type": "service_account",
-  "project_id": "billinginv-78309",
-  "private_key_id": "89fc6cc18879c423f5d86c82e0f8418cb28b3ec5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDMRS/YE4wWJDkU\ntToQvtti/Sl/yjL5wImr8pC8ZIGTmbhXHFf4Rfoa71f1FZYNUJKU89hAsHk6w7En\nNBC+qpxWXV1SV+0QLjeMnnJrnY4GgcqoSSs5kTj3vXXDXRyHE4t1pR2137TMBYbR\nKWwtU5qjQbl7yNZ38bZBrehgYTiqboz744qXCY84krYhyQO6fduNgkSP3lNblyAM\nns5rFS00t1HvWZAwOj8UKEZCnqR6twvw03X9mTqHhmw5yBzXEwu31a/BTM4Uhx/V\nsMz/zmGIp8vbf/aHwD1m5Znl+A0qqHdDaT/AMQ8GtnmE0UMyT/fDOG23GkT+pmAZ\nga+IG7grAgMBAAECggEANEqt4cm3Pd/OAQAXujuxm9ilLAKOJCNm2u7AoIm2Jhve\n9eXam0MGsKh+ws3g2M28iIcX4A+NKT75dci9VKIGXZGPF0pM9KxwKf5R2jy+I+pL\n/+KjPxxvEfSdVgLbD7UwKVC4l1uKRARSK+9Hsx7I4mwr2IVkadYlyxCDAVFCGVa4\nh9I6+YUbUq5ywF2HMyi4pTN7vtobswZsBMCRB741zS9BGE+JOlYTIfckNhftEDGm\nfB50FE/1IYu0epXmIE/KAjJhimIhMq4SgFy1th7npRZW9L518wth+m/Di+anp60i\nl63yHz2tGoan/1P1ZYMIFO+2tCz4wkL+xiMfdRsP0QKBgQDnZRM7Rs5hmC5lG+OV\nhLh4uMDMo2ErUe5kE2NmTkDxsfjNW5x7TNdWDexuvENlGGAIaAXEUGfVjRilKfNZ\n2AfQelE/DivUtRTKqLcRobW/3qcw5aPE1Yn3pfHfx1OpG5SEW3lfBhYacVUoDVQU\n1D4HxwsfJK3mVk/CAhpAAPR48wKBgQDh/b09PD2bV4S4UF79fycXos+lFdPlM4sO\nDIp/URpHNVWje7Ixl6Laf0dzh3P2+nnyT33fC4nnsbzNse/R/h1HJHyV+yQX5Mpv\nce16UjM3WtbHn0Y33kpG0xlTT0zLuTA0Uvh4v9iDNMd4Gk2TyWkWdBXQRmhy/oZc\nxAPoUIiR6QKBgQCBRmDWLxrCP4k8B7bAI+QD3gQoz+ZLk3yCAKr5zyJNZcbAxDvK\nTwXHGARNYXStmE6eo68FHH7GOgvYynUgbqb+/DdD6SDntzskddnBSf0GctgpY0J5\nh2uLJfTZtrywr63rvEc0pWvX3hVbSQb+lA0Lv1IhVhappvLsSsxrkZ0DrQKBgQCJ\nUzb7Tu/gxX3QwoX2ZJ3MrxKernTkgj2te9FtLEtbmf1AKppNqGc9frpcaaL+IZaY\nt9U1BD34nPitxcKFSHViFbnfKYz1OAILVp+IBQs6R+jbxN1Wda2M/BoXlciEwzOX\nmBOEzI80q43KXbFmbK1/B2t59E7kEeZz2GjHcqiKgQKBgQCzsET4eQTU44WisHll\nHxGipFZY4ym7xJsbasGH1yzAqvMl5EzBZBPwkn6tHPF7Bln0DUmO++Orsr+x15gb\ni8cb/PIWWqykyc7siTR1Ct/ij8TaiHji0Ad/GJvvmPfxNRiNd7Gd2XE5Et7EItiv\ncvUSGaTBpbVytK6VnEi6gN3A8w==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-2nr5t@billinginv-78309.iam.gserviceaccount.com",
-  "client_id": "117042319334650227378",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-2nr5t%40billinginv-78309.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+    "type": "service_account",
+    "project_id": "billinginv-78309",
+    "private_key_id": "db43b0775a5911b3be3acf1eb3baa0d05843d458",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDT84krwolHGmmk\nLJd7UWolkQ4VDMc0QWoFOfdwFyuaUFo9qYsjJVNnSK0mDyILHgj7kBg1E/Uii5qQ\nPSbZb6I+XMmfmJ5xSccU3UFNxM8ikZkzcYsMrlL1AJ2pVmaXv3yAsUZ66eiTVDQE\nWOakjeMMvuxxwzAKaaN3mah4T5ZdkxohHgpkpsKa4I8CCIp7njl3O2AQD2YScsPt\n1WVEWdWOdM9Tb1o4mvON58VK8IIeXqEKaUHi8jVNPgDRaEirvQ+GVGwPBp9/amOO\noq5LR53nz2knbv8xTXEhEZ4QjCQdbSOrmzKEyq10wn8PlEygq+HHcQFlMhzDVkGU\nrpRe8nHPAgMBAAECgf8NPytTkNUDnKL9n8vX6T65GlfG+QV6Ppxhtz2/w7L18g+x\nyubnS23rBp/LwSZfi4EEN/1LU/P+NLt0SF4lONTrEOGJGADPE81dgHaUZbiMcI0i\nqfYG1N5aca9o5f2DfnRJlsrQ482lZ53Yp7XCkxudsFEWyxw1imStFO1yl4bOUkYU\no7Y8zZxnEmPgieVine0VOyc5MABM4gVGOgoPnhr9GLe/9HZrj98c5Jr1/xC3VhC9\nLhZ2OEWioNcLcHtLTVlSOmvl4U6aOLY+20rMCcy4xpeDVyBzP8w/YwdE5IOjo+yq\nT/vKdSh4l39B1wgIVVFfsLEDHs9wOMd6Jn34QAECgYEA/nrgCQYsbf7ewQELsIPK\nxU5Oyk8qXOFvrmhbEgA+Q1KtqIrLDjAcY920ps5oO0XqssKf+xHuiVIB7D8A3rFe\ny3IP5CWHYtofPAyvR7kU+0BwwOCiv75RIaDTJpmkBVBz2lUse50vYfVeXGQ8rOlz\nDYHv/+zqyAsmOxeuvhBopgECgYEA1TehU1Y8wVEVHtIgey+eePZozntxcWLd8wGF\nTqmY6IiL2T3g5ggZ5OP3oNLn23IHbRPcDIwX7kzUec3u/j3T+hsIpeSr9OzWIAja\nzBzpFn4po6fiAsz4V41KDPgrlkqARHKkVUCMHKNkpRXzAcFjOPVf9jtKK8esi04g\nVGKqN88CgYEAkwqU4SH8EiKuu37LLlc4lwFEbYmIxNpOGcyasrAJSgU/6p8n7S7H\neLzmYWvqtjUUA+6JWh1mY1pLWiKdcg+y4oMpw34b2HaIjb4Wma7L/NGjVQ93equR\nXYj7+NXV/GwcRQ/qABM3CbcpquEQXikWHbvy3UIb9zLaCFMK2S/KCAECgYBBPyfQ\nD8jBw6U57EViTP0quQTzgtUBRKb00RdRLhcLuZVKImRrIDmEULqbbU7kWW2qVHR3\nJnvAQaSXrYwgIx12IMWxtltktQEFhpAl/AbcCjmFyj8gakboy+TIOT1lXWEJESf2\nqqz1qo6G8kON2vcZHAWEnToiUZUcgAjmqda7AwKBgGHxgoVtEBv0o2cGqfDRsKus\nAja2Hc+mG1mqZfoooT8DznbMec+Z+r/QONupL4ySG+MD38J77pPcCUSNxYKzIixe\nQCIRm43UHuOtnttRZuMmfI2H5BjNxaWNE2n67YV4UQKZ3pqK6/m/VDpoA5lQ9DS8\n9XffMR/Js0NqVYRsqJps\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-2nr5t@billinginv-78309.iam.gserviceaccount.com",
+    "client_id": "117042319334650227378",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-2nr5t%40billinginv-78309.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
+  
 
 
 
@@ -49,9 +51,10 @@ const firebaseConfig = {
   credential: admin.credential.cert(serviceAccount),
 };
 
+  admin.initializeApp(firebaseConfig);
 
-admin.initializeApp(firebaseConfig);
 const db = admin.firestore();
+
 
 
 app.post("/authenticateonly", authenticateJWT, async(req, res) => {
@@ -203,7 +206,7 @@ app.post('/register', async(req, res) => {
 
 app.get("/getprofile/:uid", async(rq, rs) => {
   try{
-      console.log("dfsdf");
+      // console.log("dfsdf");
       const uuid = rq.params.uid;
       const profile_data = (await db.collection("profile").doc(uuid).get()).data();
       console.log(profile_data);
