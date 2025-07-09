@@ -80,6 +80,8 @@ app.post("/addthread", authenticateJWT, async(req, res) => {
 
 app.get("/getthreads", async (req, res) => {
   try {
+
+    console.log(db);
     
     const dt = await db.collection("threads").get();
     const obj = dt.docs.map((i) => ({id : i.id, ...i.data()}));
