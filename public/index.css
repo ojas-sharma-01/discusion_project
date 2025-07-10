@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navv *{
+    padding : 1%;
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+*{
+    font-family: 'Poiret One', cursive;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+/*
+@media screen and (max-width : 768px) {
+    * {
+        font-size: 1.4rem;
+    }
+    .navv {
+        height: 500px;
+    }
+}*/
