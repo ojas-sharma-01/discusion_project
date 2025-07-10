@@ -1,63 +1,89 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import './index.css';
 import reel from './reel.png';
 import bord from './navborder.png';
+import { AuthContext } from "./authContext.js";
 
 const Nv = () => {
-
-  const sbmt = () => {
-    localStorage.removeItem("userid");
-  };
+  const { user, logout } = useContext(AuthContext);
 
   return (
-    <div className="navv" style={nav}>
-      <img className="reeel" src={reel} width={"80px"} height={"80px"} style={{marginLeft : "10%", marginTop : "0.5vh"}} />
-      {localStorage.getItem("userid")&&<div className="usr" style={{}}>
-        <div style={{overflowWrap : "break-word"}}><Link to="/profile" >{localStorage.getItem("userid")}</Link></div>
-      </div>}
-      <div className="home" style={{paddingTop : "30px"}}>
-        <Link className="lnk" style={{padding : "5px", borderRadius : "10px"}} to="/">Home</Link>
-      </div>
-      {/*<div className="mypst" style={{paddingTop : "30px"}}>
-        <Link className="lnk" to="/">All&nbsp;Posts</Link>
-  </div>*/}
-      <div className="sprt" style={{paddingTop : "30px"}}>
-        <Link className="lnk" style={{padding : "5px", borderRadius : "10px"}} to="/">Support</Link>
-      </div>
-      <div className="srh" style={search}>
-        <input name="srch" style={{borderRadius : "20px", border : "none"}} placeholder=" Search by tags.."></input>
-      </div>
-      {!localStorage.getItem("userid")&&<div style={{marginLeft : "auto", marginRight : "10%"}}>
-        <Link to="/login" ><button className="btnlgout" type="submit" style={{width : "fit-content", backgroundColor : "orange" ,
-                borderRadius : "5px", padding: "10px 20px", color : "white", border : "none"}}>
-            Login/Signup
-        </button>
+    <>
+    <div 
+      className="flex hidden md:flex items-center justify-center p-3 rounded-2xl border-b border-black bg-cover bg-center px-[10%]"
+      style={{ backgroundImage: `url(${bord})` }}
+    >
+      <img
+        className="ml-10 mt-1 w-32 h-auto"
+        src={reel}
+        alt="Reel"
+      />
+      {user && (
+        <div className="ml-8">
+          <Link
+            to="/profile"
+            className="text-2xl font-semibold text-black hover:underline"
+          >
+            {user}
+          </Link>
+        </div>
+      )}
+      <div className="flex items-center justify-end w-full">
+      <div className='ml-8'>
+        <Link
+          className="text-white bg-black px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+          to="/"
+        >
+          Home
         </Link>
-      </div>}
-      {localStorage.getItem("userid")&&<div style={{marginLeft : "auto", marginRight : "10%"}}>
-        <Link className="lnklogout" to="/" ><button className="btnlgout"type="submit" onClick={sbmt} style={{width : "fit-content", backgroundColor : "orange" ,
-                borderRadius : "5px", padding: "10px 20px", color : "white", border : "none"}}>
-            Logout
-        </button>
+      </div>
+      {/*
+      <div className="ml-4">
+        <Link
+          className="text-white bg-black px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+          to="/"
+        >
+          All Posts
         </Link>
-      </div>}
+      </div>
+      */}
+      <div className="ml-8">
+        <Link
+          className="text-white bg-black px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+          to="/"  
+        >
+          Support
+        </Link>
+      </div>
+      <div className="ml-8" />
+        {!user ? (
+        <div>
+          <Link to="/login">
+            <button
+              className="bg-orange-500 rounded px-6 py-2 text-white font-semibold hover:bg-orange-600 transition-colors"
+              type="submit"
+            >
+              Login/Signup
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <Link to="/">
+            <button
+              className="bg-orange-500 rounded px-6 py-2 text-white font-semibold hover:bg-orange-600 transition-colors"
+              type="submit"
+              onClick={logout}
+            >
+              Logout
+            </button>
+          </Link>
+        </div>
+      )}
+      </div>
     </div>
+    </>
   );
 };
-
-const nav = {
-  display: "flex",
-  justifyContent: "center",
-  padding : "10px",
-  borderRadius: "20px",
-  borderBottom : "1px solid black",
-};
-
-const search = {
- 
-};
-
-
 
 export default Nv;

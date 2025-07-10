@@ -4,21 +4,22 @@ import profile from './profile.png';
 
 const Getcmnt = (props) => {
     return (
-        <div style={{margin : "1%", borderRadius : "20px", padding : "1%", boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)", paddingLeft : "3%"}}>
-            <div className="userid" style={{width : "fit-content", borderBottom : "1px solid gray"}}>
-                <p className="cmntusr" style={{}}><img src = {profile} width="40px" style={{float : "left"}}/>&nbsp;{props.username}</p>
+        <div className="my-2 rounded-2xl p-4 pl-8 shadow-lg bg-white">
+            <div className="flex items-center border-b border-gray-300 w-fit pb-2 mb-2">
+                <img src={profile} className="w-10 h-10 rounded-full mr-2" alt="profile" />
+                <span className="font-semibold text-lg">{props.username}</span>
             </div>
-            <div className="comment">
-                <p style={{overflowWrap : "break-word"}}>{props.comment}</p>
+            <div className="mb-2">
+                <p className="break-words text-base text-gray-800">{props.comment}</p>
             </div>
-            <div className="reactns" style={{display : "flex", width :"7%", justifyContent: "space-between"}}>
-                <img src={image} width="30px" height="30px" style={{float : "left"}}/>
-                <div style={{margin : "0 20px 0 2px", width : "20%"}}>
-                    {props.reactions.likes}
+            <div className="flex items-center gap-4 w-fit">
+                <div className="flex items-center gap-1">
+                    <img src={image} className="w-7 h-7" alt="like" />
+                    <span className="ml-1 w-6 text-center">{props.reactions.likes}</span>
                 </div>
-                <img src={image} width="30px" height="30px" style={{float : "left",transform : "rotate(180deg)"}}/>
-                <div style={{margin : "0 20px 0 2px", width : "20%"}}>
-                    {props.reactions.dislikes}
+                <div className="flex items-center gap-1">
+                    <img src={image} className="w-7 h-7 transform rotate-180" alt="dislike" />
+                    <span className="ml-1 w-6 text-center">{props.reactions.dislikes}</span>
                 </div>
             </div>
         </div>

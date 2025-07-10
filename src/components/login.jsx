@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Ham from "./ham";
 import Nv from "./topnav";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp} from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import 'firebase/auth';
 import load from "./load.gif";
+import Cookies from "js-cookie";
+import { AuthContext } from "./authContext.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC2YMy095m2EJdE6Zg4MVb7JXqLKM8EW2Y",
@@ -23,8 +26,8 @@ const auth = getAuth();
 
 const Login = () => {
   const [fdata, setfdata] = useState({ email: "", passwd: "" });
+  const { user, login, uid } = useContext(AuthContext);
   const navv = useNavigate();
-
   const handlefdata = (e) => {
     const { name, value } = e.target;
     setfdata({ ...fdata, [name]: value });
@@ -34,84 +37,85 @@ const Login = () => {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    setrstext(<img src={load} height={"80px"} />);
+    setrstext(<img src={load} className="h-[60px]" />);
     signInWithEmailAndPassword(auth, fdata.email, fdata.passwd)
-    .then((userCredential) => {
-
-      setrstext("Login Successfull");
-      const user = userCredential.user;
-      // console.log(user);
-      setTimeout(() => {
-        navv(`/`, { state: { userid: fdata.username } });
-        localStorage.setItem("userid", user.displayName);
-      }, 500);
-
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      setrstext("Please check your credentials")
-    });
-
-  //   fetch("http://localhost:5000/login", {
-  //     method: "POST",
-  //     body: JSON.stringify(fdata),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((r) => r.text())
-  //     .then((d) => {
-  //       setrstext(d);
-  //       // if (d === "Login Successfull") {
-  //       //   navv(`/`, { state: { userid: fdata.username } });
-  //       //   localStorage.setItem("userid", fdata.username);
-  //       // }
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
-  }
+      .then((userCredential) => {
+        fetch("https://discusion-project.vercel.app/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({token: userCredential.user.accessToken, username: userCredential.user.displayName }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          login(data.jwt_token, data.username, data.uid);
+          setrstext("Login Successfull");
+          setTimeout(() => {
+            navv(`/`);
+          }, 500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        setrstext("Please check your credentials");
+      });
+  };
 
   return (
     <div>
-      <Nv />
-      <form className="logn"
+      <Ham  />
+      <Nv  />
+      <form
+        className="w-full max-w-md mx-auto my-10 flex flex-col bg-white shadow-lg rounded-lg p-8"
         onSubmit={handlesubmit}
-        style={{display: "flex", flexDirection: "column",margin: "5% auto",padding: "20px",boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",
-          borderRadius: "10px",
-        }}
       >
-        <label htmlFor="email" style={{ marginBottom: "8px" }}>
+        <label htmlFor="email" className="mb-2 font-semibold">
           Email
         </label>
-        <input type="email" name="email" placeholder="Enter your email address" required={true} onChange={handlefdata} value={fdata.email}
-          style={{ padding: "10px", marginBottom: "16px", borderRadius: "5px" }}
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email address"
+          required
+          onChange={handlefdata}
+          value={fdata.email}
+          className="p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
         />
-        <label htmlFor="passwd" style={{ marginBottom: "8px" }}>
+        <label htmlFor="passwd" className="mb-2 font-semibold">
           Password
         </label>
         <input
           type="password"
           name="passwd"
           placeholder="Enter your password"
-          required={true}
+          required
           onChange={handlefdata}
           value={fdata.passwd}
-          style={{ padding: "10px", marginBottom: "16px", borderRadius: "5px" }}
+          className="p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
         />
         <button
           type="submit"
-          style={{width: "fit-content", margin: "auto", padding: "10px 20px", backgroundColor: "orange",color: "white", border: "none",borderRadius: "5px",
-            cursor: "pointer",
-          }}
+          className="px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors mx-auto"
         >
           Login
         </button>
-        <p>
-          Don't have an account? <Link to="/signup">Signup</Link>
+        <p className="mt-4 text-center">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-orange-600 hover:underline">
+            Signup
+          </Link>
         </p>
-        {restxt && <p style={{margin: "auto", backgroundColor :"blue", borderRadius : "10px", padding : "8px 16px", color :"white"}}>{restxt}</p>}
+        {restxt && (
+          <p className="mx-auto mt-4 bg-blue-600 rounded-lg px-4 py-2 text-white text-center">
+            {restxt}
+          </p>
+        )}
       </form>
     </div>
   );

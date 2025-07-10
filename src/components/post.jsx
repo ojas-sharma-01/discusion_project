@@ -16,16 +16,16 @@ function Post (props) {
 
     return (
         <div>
-            <Link to={"./pst/" + props.id } style = {st}>
-                <div className="about" style={{marginBottom : "5%"}}>
-                    <img src={profile} width="40px" style={{float : "left", marginRight : "1%"}}/>{props.username}
+            <Link to={"./pst/" + props.id } state={{post_user : props.username}} style = {st}>
+                <div className="about mb-6">
+                    <img src={profile} className="w-[40px] h-[40px] rounded-full mr-[1%]" style={{float : "left"}}/>{props.username}
                 </div>
                 <div style={{display : "flex"}}>
                     <div className="pstcontent" style={{flex : "5", marginRight : "10%"}}>
                         {props.discussion_heading}
                     </div>
-                    <div style={{flex : "1"}}>
-                        {props.post_time.day} {props.post_time.time}
+                    <div style={{flex : "1"}} className="text-md text-gray-500">
+                        {props.post_time.day} {props.post_time.time} {props.post_time.year}
                     </div>
                     <div className="reactions" style={{display : "flex", justifyContent : "space-evenly", flex : "1"}}>
                         <img src={like} style={{float : "left"}}/>

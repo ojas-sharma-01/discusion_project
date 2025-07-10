@@ -1,6 +1,6 @@
 {
   "version" : 2,
-  "name" : "task-scheduler",
+  "name" : "discussion-project",
   "builds" : [
     {
       "src" : "server.js",
