@@ -7,6 +7,7 @@ import path from 'path';
 import authenticateJWT from './authMiddleware.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { Timestamp } from 'firebase/firestore';
 
 dotenv.config();
 
@@ -55,11 +56,13 @@ app.post("/addthread", authenticateJWT, async(req, res) => {
     const dt = req.body;
     
     const adjusted_date = new Date(date.toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
-    dt.post_time = {
-      "day" : days[adjusted_date.getDay()], 
-      "time" : adjusted_date.getHours() + ":" + (adjusted_date.getMinutes() < 10 ? '0' : '') + adjusted_date.getMinutes(),
-      "year" : adjusted_date.getFullYear(),
-    };
+
+    const epochMillis = adjusted_date.getTime();
+    console.log(epochMillis);
+    const seconds = Math.floor(epochMillis / 1000);
+    const nanoseconds = (epochMillis % 1000) * 1_000_000;
+
+    dt.postTime = {_seconds : seconds, _nanoseconds : nanoseconds};
 
     dt.comments = [];
     dt.reactions = {likes : 0, hearts : 0, laughs : 0};
@@ -78,7 +81,7 @@ app.get("/getthreads", async (req, res) => {
   try {
 
     
-    const dt = await db.collection("threads").get();
+    const dt = await db.collection("threads").orderBy("postTime", "desc").get();
     const obj = dt.docs.map((i) => ({id : i.id, ...i.data()}));
     /*
     for (const i of dt.docs){

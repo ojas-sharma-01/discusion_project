@@ -6,6 +6,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import image from './like.png';
 import profile from './profile.png';
 import { AuthContext } from "./authContext.js";
+import { Timestamp } from "firebase/firestore";
 
 function crtcmnt(props) {
     return (
@@ -83,6 +84,8 @@ const Pstpg = () => {
             "inset 0 -3em 3em rgba(0,0,0,0.1), 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em rgba(0,0,0,0.3)"
     };
 
+    const timeStamp = new Timestamp(dt?.postTime?._seconds, dt.postTime?._nanoseconds);
+
     return (
         <div className="flex flex-col min-h-screen bg-gray-50">
             <Ham  />
@@ -104,7 +107,7 @@ const Pstpg = () => {
                     <p className="break-words">{dt.content}</p>
                 </div>
                 <div className="py-2 text-sm text-gray-500">
-                    {dt.post_time.day} {dt.post_time.time} {dt.post_time.year}
+                    {timeStamp.toDate().toLocaleString()}
                 </div>
                 <div className="flex items-center gap-6 py-2">
                     <div onClick={handleReaction} className="flex items-center gap-4 cursor-pointer select-none">

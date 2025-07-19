@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import profile from './profile.png';
 import like from './like.png';
+import { Timestamp } from "firebase/firestore";
 
 function Post (props) {
     const st = {
@@ -14,6 +15,8 @@ function Post (props) {
         justifyContent : "space-between",
     }
 
+    const timeStamp = new Timestamp(props?.postTime?._seconds, props?.postTime?._nanoseconds);
+
     return (
         <div>
             <Link to={"./pst/" + props.id } state={{post_user : props.username}} style = {st}>
@@ -25,7 +28,8 @@ function Post (props) {
                         {props.discussion_heading}
                     </div>
                     <div style={{flex : "1"}} className="text-md text-gray-500">
-                        {props.post_time.day} {props.post_time.time} {props.post_time.year}
+                        {/* {props.post_time.day} */}
+                        {timeStamp.toDate().toDateString()}
                     </div>
                     <div className="reactions" style={{display : "flex", justifyContent : "space-evenly", flex : "1"}}>
                         <img src={like} style={{float : "left"}}/>

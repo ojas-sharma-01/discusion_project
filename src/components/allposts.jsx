@@ -18,6 +18,7 @@ function Allposts () {
             reactions = {props.reactions}
             userid = {user}
             post_time = {props.post_time}
+            postTime = {props.postTime}
             />
         );
     };
